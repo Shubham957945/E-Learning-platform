@@ -1,0 +1,273 @@
+// E-Learning Platform JavaScript Functionality
+
+// Global variables
+let currentUser = null;
+let userType = null;
+
+// Initialize the application
+document.addEventListener('DOMContentLoaded', function() {
+    initializeApp();
+    setupEventListeners();
+});
+
+function initializeApp() {
+    console.log('E-Learning Platform initialized');
+    loadCourses();
+    checkLoginStatus();
+}
+
+function setupEventListeners() {
+    // Login forms
+    const studentLoginForm = document.getElementById('studentLoginForm');
+    const teacherLoginForm = document.getElementById('teacherLoginForm');
+    const homeworkForm = document.getElementById('homeworkForm');
+
+    if (studentLoginForm) {
+        studentLoginForm.addEventListener('submit', handleStudentLogin);
+    }
+    if (teacherLoginForm) {
+        teacherLoginForm.addEventListener('submit', handleTeacherLogin);
+    }
+    if (homeworkForm) {
+        homeworkForm.addEventListener('submit', handleHomeworkUpload);
+    }
+
+    // Navigation buttons
+    document.querySelectorAll('.btn-primary').forEach(btn => {
+        btn.addEventListener('click', handleButtonClick);
+    });
+}
+
+// Navigation functions
+function scrollToSection(sectionId) {
+    document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+}
+
+function handleButtonClick(event) {
+    const button = event.target;
+    const action = button.getAttribute('onclick');
+    if (action) {
+        eval(action);
+    }
+}
+
+// Login functionality
+function handleStudentLogin(e) {
+    e.preventDefault();
+    const email = document.getElementById('studentEmail').value;
+    const password = document.getElementById('studentPassword').value;
+    
+    if (email && password) {
+        currentUser = { email, type: 'student' };
+        userType = 'student';
+        showStudentDashboard();
+        alert('Student login successful!');
+    } else {
+        alert('Please fill in all fields');
+    }
+}
+
+function handleTeacherLogin(e) {
+    e.preventDefault();
+    const email = document.getElementById('teacherEmail').value;
+    const password = document.getElementById('teacherPassword').value;
+    
+    if (email && password) {
+        currentUser = { email, type: 'teacher' };
+        userType = 'teacher';
+        showTeacherDashboard();
+        alert('Teacher login successful!');
+    } else {
+        alert('Please fill in all fields');
+    }
+}
+
+function showStudentDashboard() {
+    document.getElementById('login').style.display = 'none';
+    document.getElementById('student-dashboard').style.display = 'block';
+    loadStudentHomework();
+}
+
+function showTeacherDashboard() {
+    document.getElementById('login').style.display = 'none';
+    document.getElementById('teacher-dashboard').style.display = 'block';
+    loadTeacherHomework();
+}
+
+function checkLoginStatus() {
+    // Check if user is already logged in (from localStorage)
+    const savedUser = localStorage.getItem('currentUser');
+    if (savedUser) {
+        currentUser = JSON.parse(savedUser);
+        userType = currentUser.type;
+        if (userType === 'student') {
+            showStudentDashboard();
+        } else if (userType === 'teacher') {
+            showTeacherDashboard();
+        }
+    }
+}
+
+// Course management
+function loadCourses() {
+    const courses = [
+        { id: 'html-basics', title: 'HTML Basics', description: 'Learn HTML fundamentals' },
+        { id: 'css-styling', title: 'CSS Styling', description: 'Master CSS styling techniques' },
+        { id: 'javascript', title: 'JavaScript Fundamentals', description: 'JavaScript programming basics' }
+    ];
+    
+    // Display courses (would normally come from API)
+    console.log('Courses loaded:', courses);
+}
+
+function enrollCourse(courseId) {
+    if (!currentUser) {
+        alert('Please login to enroll in courses');
+        scrollToSection('login');
+        return;
+    }
+    
+    alert(Successfully , enrolled in $,{courseId});
+    // Add to user's enrolled courses
+}
+
+// Homework management
+function handleHomeworkUpload(e) {
+    e.preventDefault();
+    
+    if (!currentUser || currentUser.type !== 'student') {
+        alert('Please login as a student to upload homework');
+        return;
+    }
+    
+    const studentName = document.getElementById('studentName').value;
+    const courseName = document.getElementById('courseName').value;
+    const fileInput = document.getElementById('homeworkFile');
+    
+    if (!studentName || !courseName || !fileInput.files[0]) {
+        alert('Please fill in all fields and select a file');
+        return;
+    }
+    
+    const file = fileInput.files[0];
+    const homework = {
+        id: Date.now(),
+        studentName,
+        courseName,
+        fileName: file.name,
+        fileSize: file.size,
+        uploadDate: new Date().toLocaleDateString(),
+        status: 'pending',
+        grade: null,
+        feedback: null
+    };
+    
+    saveHomework(homework);
+    alert('Homework uploaded successfully!');
+    document.getElementById('homeworkForm').reset();
+    loadStudentHomework();
+}
+
+function saveHomework(homework) {
+    let homeworkList = JSON.parse(localStorage.getItem('homeworkList')) || [];
+    homeworkList.push(homework);
+    localStorage.setItem('homeworkList', JSON.stringify(homeworkList));
+}
+
+function loadStudentHomework() {
+    const homeworkList = JSON.parse(localStorage.getItem('homeworkList')) || [];
+    const studentHomework = homeworkList.filter(hw => hw.studentName === currentUser?.email);
+    
+    const submissionsList = document.getElementById('submissionsList');
+    if (submissionsList) {
+        submissionsList.innerHTML = '';
+        studentHomework.forEach(hw => {
+            const hwElement = document.createElement('div');
+            hwElement.className = 'homework-item';
+            hwElement.innerHTML = `
+                <h4>${hw.courseName}</h4>
+                <p>File: ${hw.fileName}</p>
+                <p>Status: ${hw.status}</p>
+                <p>Grade: ${hw.grade || 'Pending'}</p>
+                <p>Feedback: ${hw.feedback || 'No feedback yet'}</p>
+            `;
+            submissionsList.appendChild(hwElement);
+        });
+    }
+}
+
+function loadTeacherHomework() {
+    const homeworkList = JSON.parse(localStorage.getItem('homeworkList')) || [];
+    
+    const submissionsDiv = document.getElementById('homeworkSubmissions');
+    if (submissionsDiv) {
+        submissionsDiv.innerHTML = '';
+        homeworkList.forEach(hw => {
+            const hwElement = document.createElement('div');
+            hwElement.className = 'homework-review';
+            hwElement.innerHTML = `
+                <h4>${hw.courseName} - ${hw.studentName}</h4>
+                <p>File: ${hw.fileName}</p>
+                <p>Status: ${hw.status}</p>
+                <p>Upload Date: ${hw.uploadDate}</p>
+                <div class="grade-section">
+                    <input type="number" min="0" max="100" placeholder="Grade" id="grade-${hw.id}">
+                    <textarea placeholder="Feedback" id="feedback-${hw.id}"></textarea>
+                    <button onclick="gradeHomework(${hw.id})">Submit Grade</button>
+                </div>
+            `;
+            submissionsDiv.appendChild(hwElement);
+        });
+    }
+}
+
+function gradeHomework(homeworkId) {
+    const grade = document.getElementById(grade-$,{homeworkId}).value;
+    const feedback = document.getElementById(feedback-$,{homeworkId}).value;
+    
+    if (!grade) {
+        alert('Please enter a grade');
+        return;
+    }
+    
+    let homeworkList = JSON.parse(localStorage.getItem('homeworkList')) || [];
+    const homework = homeworkList.find(hw => hw.id === homeworkId);
+    
+    if (homework) {
+        homework.grade = parseInt(grade);
+        homework.feedback = feedback;
+        homework.status = 'graded';
+        localStorage.setItem('homeworkList', JSON.stringify(homeworkList));
+        alert('Grade submitted successfully!');
+        loadTeacherHomework();
+    }
+}
+
+// Utility functions
+function logout() {
+    localStorage.removeItem('currentUser');
+    currentUser = null;
+    userType = null;
+    location.reload();
+}
+
+// Responsive navigation
+function setupResponsiveNav() {
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    
+    if (hamburger) {
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    }
+}
+
+// Initialize responsive features
+setupResponsiveNav();
+
+// Export functions for global use
+window.scrollToSection = scrollToSection;
+window.enrollCourse = enrollCourse;
+window.studentLogin = handleStudentLogin;
+window.teacherLogin = handleTeacherLogin;

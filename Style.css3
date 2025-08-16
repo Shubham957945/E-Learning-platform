@@ -1,0 +1,301 @@
+/* Reset & Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  line-height: 1.6;
+  background: #f4f6f9;
+  color: #333;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Navbar */
+.navbar {
+  background-color: #13ccff;
+  color: #fff;
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.nav-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-links li a {
+  color: #fff;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.nav-links li a:hover {
+  color: #ffcc00;
+}
+
+/* Hamburger Menu */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+}
+
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background: #fff;
+}
+
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(120deg, #004aad, #0075ff);
+  color: white;
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.hero-section h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.hero-section p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.btn-primary {
+  padding: 10px 20px;
+  background-color: #ffcc00;
+  color: #000;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: background 0.3;
+}
+
+.btn-primary:hover {
+  background-color: #f5b700;
+}
+
+/* Courses Section */
+.courses-section {
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.courses-section h2 {
+  margin-bottom: 30px;
+}
+
+.course-videos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.video-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  width: 300px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-enroll {
+  margin-top: 10px;
+  background: #0075ff;
+  color: #fff;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-enroll:hover {
+  background: #005edc;
+}
+
+/* Homework Section */
+.homework-section {
+  padding: 50px 20px;
+  background: #e9f1ff;
+  text-align: center;
+}
+
+.homework-section h2 {
+  margin-bottom: 20px;
+}
+
+/* Login Section */
+.login-section {
+  padding: 50px 20px;
+  background: #fff;
+  text-align: center;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.login-box {
+  background: #f1f1f1;
+  padding: 25px;
+  border-radius: 10px;
+  width: 300px;
+}
+
+.login-box input {
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+}
+
+.login-box button {
+  width: 100%;
+  padding: 10px;
+  background: #004aad;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.login-box button:hover {
+  background: #00308f;
+}
+
+/* Dashboards */
+.dashboard {
+  padding: 50px 20px;
+  background: #f4f4f4;
+}
+
+.dashboard h2 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.dashboard-content {
+  max-width: 600px;
+  margin: auto;
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-content form input,
+.dashboard-content form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.dashboard-content form button {
+  background-color: #0075ff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.homework-item,
+.homework-review {
+  background: #f9f9f9;
+  border: 1px solid #ccc;
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.grade-section {
+  margin-top: 10px;
+}
+
+.grade-section input,
+.grade-section textarea {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+}
+
+/* Footer */
+.footer {
+  background: #004aad;
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+  margin-top: 50px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    background: #004aad;
+    width: 100%;
+    position: absolute;
+    top: 65px;
+    left: 0;
+    padding: 1rem;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .login-container {
+    flex-direction: column;
+  }
+
+  .course-videos {
+    flex-direction: column;
+    align-items: center;
+  }
+}

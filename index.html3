@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduZone - E-Learning Platform</title>
+  <link rel="stylesheet" href="Style.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="logo">EduZone</div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#courses">Courses</a></li>
+          <li><a href="#homework">Homework</a></li>
+          <li><a href="#login">Login</a></li>
+        </ul>
+      </nav>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </header>
+
+  <section id="home" class="hero-section">
+    <div class="hero-content">
+      <h1>Learn Anytime, Anywhere</h1>
+      <p>Explore top courses and upload your assignments easily.</p>
+      <button class="btn-primary" onclick="scrollToSection('courses')">View Courses</button>
+    </div>
+  </section>
+
+  <section id="courses" class="courses-section">
+    <h2>Popular Courses</h2>
+    <div class="course-videos">
+      <div class="video-card">
+        <h3>HTML Basics</h3>
+        <video controls width="100%">
+          <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <button class="btn-enroll" onclick="enrollCourse('html-basics')">Enroll Now</button>
+      </div>
+      <div class="video-card">
+        <h3>CSS Styling</h3>
+        <video controls width="100%">
+          <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <button class="btn-enroll" onclick="enrollCourse('css-styling')">Enroll Now</button>
+      </div>
+      <div class="video-card">
+        <h3>JavaScript Fundamentals</h3>
+        <video controls width="100%">
+          <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <button class="btn-enroll" onclick="enrollCourse('javascript')">Enroll Now</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="homework" class="homework-section">
+    <h2>Student Homework</h2>
+    <div id="homeworkContent">
+      <p>Please login to access homework features</p>
+    </div>
+  </section>
+
+  <section id="login" class="login-section">
+    <h2>Login Portal</h2>
+    <div class="login-container">
+      <div class="login-box">
+        <h3>Student Login</h3>
+        <form id="studentLoginForm">
+          <input type="email" placeholder="Email" id="studentEmail" required>
+          <input type="password" placeholder="Password" id="studentPassword" required>
+          <button type="submit">Login as Student</button>
+        </form>
+      </div>
+      <div class="login-box">
+        <h3>Teacher Login</h3>
+        <form id="teacherLoginForm">
+          <input type="email" placeholder="Email" id="teacherEmail" required>
+          <input type="password" placeholder="Password" id="teacherPassword" required>
+          <button type="submit">Login as Teacher</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section id="student-dashboard" class="dashboard" style="display: none;">
+    <h2>Student Dashboard</h2>
+    <div class="dashboard-content">
+      <h3>Upload Homework</h3>
+      <form id="homeworkForm">
+        <input type="text" id="studentName" placeholder="Your Name" required>
+        <input type="text" id="courseName" placeholder="Course Name" required>
+        <input type="file" id="homeworkFile" accept=".pdf,.doc,.docx,.txt" required>
+        <button type="submit">Upload Homework</button>
+      </form>
+      <div id="studentHomeworkList">
+        <h3>Your Submissions</h3>
+        <div id="submissionsList"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="teacher-dashboard" class="dashboard" style="display: none;">
+    <h2>Teacher Dashboard</h2>
+    <div class="dashboard-content">
+      <h3>Review Homework</h3>
+      <div id="homeworkSubmissions"></div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>&copy; 2025 EduZone. All rights reserved.</p>
+  </footer>
+
+  <script src="Javascript.js"></script>
+</body>
+</html>
